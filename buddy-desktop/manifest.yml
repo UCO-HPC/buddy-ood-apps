@@ -1,0 +1,8 @@
+---
+name: Buddy Desktop
+icon: fa://desktop
+category: Interactive Apps
+subcategory: Desktops
+role: batch_connect
+description: |
+  This app will launch an interactive desktop on Buddy.

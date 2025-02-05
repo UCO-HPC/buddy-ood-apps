@@ -1,0 +1,11 @@
+---
+name: Octave
+category: Interactive Apps
+subcategory: GUIs
+role: batch_connect
+description: |
+  This app will launch a [GNU Octave] GUI on [Buddy]. You will be able
+  to interact with the Octave GUI through a VNC session.
+
+  [GNU Octave]: https://www.octave.org/
+  [Buddy]: https://buddy.uco.edu/

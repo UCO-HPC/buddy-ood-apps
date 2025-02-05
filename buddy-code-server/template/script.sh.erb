@@ -1,0 +1,39 @@
+# Purge the environment to avoid conflicts
+module purge
+
+# Load requested version
+module load <%= context.version %>
+## module load git/2.36.0-nodocs 
+module load git-lfs
+
+<%- if context.no_default == "1" && context.modules.blank? == false -%>
+	  module load <%= context.modules %>
+	<%- else -%>
+	  module load foss/2024a
+	  module load Anaconda3/2024.02-1
+	  module load Java/21.0.2
+<%- end -%>  
+
+#List loaded modules
+module list
+
+# Expose the hashed password to the server.
+export PASSWORD="$password"
+echo Login password set to $password
+
+# Tell user where code server will be started
+echo "$(date): Preparing to run on ${host}:$port"
+
+#
+# Start Code Server.
+#
+echo "$(date): Starting code-server"
+echo ""
+
+## Launch Code Server
+code-server \
+	--auth none \
+	--disable-update-check \
+	--bind-addr 0.0.0.0:${port} \
+	--proxy-domain ondemand.hpc.uco.edu/rnode/${host}/${port} \
+	--verbose

@@ -1,0 +1,37 @@
+---
+cluster: "buddy-2.5"
+
+form:
+  - version
+  - modules
+  - buddy_queue
+  - buddy_num_hours
+
+attributes:
+  version:
+    label: "QGIS Version"
+    help: "Select the desired version of QGIS"
+    widget: select
+    options:
+      - [ "QGIS 3.28.1 Firenze", "QGIS/3.28.1-foss-2021b"]
+  modules:
+    widget: text_field
+    label: Additional modules
+    help: "Additional modules you wish to load seperated by spaces. Please be sure to match the FOSS, GCC, and or R versions listed with your selected RStudio version."
+    value: ""
+  buddy_queue:
+    label: Queue
+    help: "Queue your job will run on"
+    widget: select
+    options:
+      - [ "Desktop", "desktop" ]
+#      - [ "High Mem", "high-mem" ]
+  buddy_num_hours:
+    widget: number_field
+    label: "Number of hours"
+    required: true
+    help: "Set the length of time for this job (1-48)"
+    min: 1
+    max: 48
+    step: 1
+    value: 2

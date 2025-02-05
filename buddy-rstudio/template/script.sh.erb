@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# Purge the environment to avoid conflicts
+module purge
+
+# Load requested version
+module load <%= context.version %>
+
+# Load additional modules, if any
+<%- unless context.modules.blank? -%>
+# Load the requested modules
+module load <%= context.modules %>
+
+# List loaded modules
+module list
+<%- end -%>
+
+# create server configuration
+export RSTUDIO_CONFIG_DIR=$PWD      # system config
+export RSTUDIO_DATA_HOME="/tmp/$USER/rstudio"       # per-session storage
+export RSTUDIO_AUTH="$PWD/bin/auth"
+
+_workspace_dir=<%= "$HOME" %>
+echo _workspace_dir = $_workspace_dir
+
+cat <<-EOF > $RSTUDIO_CONFIG_DIR/rserver.conf
+server-user=$USER
+www-port=$port
+auth-none=0
+auth-pam-helper-path=$RSTUDIO_AUTH
+auth-encrypt-password=0
+auth-timeout-minutes=0
+database-config-file=$RSTUDIO_CONFIG_DIR/database.conf
+server-data-dir=$RSTUDIO_DATA_HOME
+server-app-armor-enabled=0
+EOF
+
+cat <<-EOF > $RSTUDIO_CONFIG_DIR/env-vars
+LC_ALL=C
+EOF
+
+cat <<-EOF > $RSTUDIO_CONFIG_DIR/rsession.conf
+session-timeout-minutes=0
+session-timeout-suspend=0
+session-save-action-default=no
+session-quit-child-processes-on-exit=1
+r-restore-workspace=0
+session-default-working-dir=$_workspace_dir
+EOF
+cat <<-EOF > $RSTUDIO_CONFIG_DIR/logging.conf
+[*]
+log-level=info
+logger-type=file
+log-dir=$RSTUDIO_CONFIG_DIR/sessions
+EOF
+cat <<-EOF > $RSTUDIO_CONFIG_DIR/database.conf
+provider=sqlite
+directory=$RSTUDIO_CONFIG_DIR
+pool-size=$SLURM_CPUS_ON_NODE
+EOF
+mkdir $RSTUDIO_CONFIG_DIR/sessions
+
+# start server
+rserver 2>&1
+
+

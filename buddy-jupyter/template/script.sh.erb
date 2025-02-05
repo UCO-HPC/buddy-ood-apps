@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# Benchmark info
+echo "TIMING - Starting main script at: $(date)"
+
+# Set working directory to home directory
+cd "${HOME}"
+
+#
+# Start Jupyter Notebook Server
+#
+
+# Purge the environment to avoid conflicts
+module purge
+
+<%- if context.advanced == "1" -%>
+
+  <%- case context.version  when "2.2.8" %>
+      JUPYTER_VERSION=JupyterLab/2.2.8-GCCcore-10.2.0
+      TOOLKIT_VERSION=2020b-Python-3.8.6
+      KERNEL_PACK_VERSION=NONE
+
+    <% when "3.0.16" %>
+      JUPYTER_VERSION=JupyterLab/3.0.16-GCCcore-10.3.0
+      TOOLKIT_VERSION=2021a-Python-3.9.5
+      KERNEL_PACK_VERSION=NONE
+
+    <% when "3.5.0" %>
+      JUPYTER_VERSION=JupyterLab/3.5.0-GCCcore-11.3.0
+      TOOLKIT_VERSION=2022a-Python-3.10.4
+      KERNEL_PACK_VERSION=1.1-GCCcore-11.3.0
+
+    <% when "4.2.0" %>
+      JUPYTER_VERSION=JupyterLab/4.2.0-GCCcore-13.2.0
+      TOOLKIT_VERSION=NONE
+      KERNEL_PACK_VERSION=NONE
+
+    <% when "custom" %>
+      JUPYTER_VERSION=custom
+      TOOLKIT_VERSION=ignore
+   
+  <%- end -%>
+
+  <%- else -%>
+
+      JUPYTER_VERSION=JupyterLab/4.2.0-GCCcore-13.2.0
+      TOOLKIT_VERSION=NONE
+      KERNEL_PACK_VERSION=NONE
+
+<%- end -%>
+
+<%- if context.version != "custom" -%>
+
+  module load $JUPYTER_VERSION
+  
+  <%- if context.dstoolkit == "1" -%>
+    module load Python-Data-Science/$TOOLKIT_VERSION    
+  <%- end -%>
+
+  <%- if $KERNEL_PACK_VERSION != "" -%>
+    module load Jupyter-Kernel-Pack/$KERNEL_PACK_VERSION
+  <%- end -%>
+  
+##  < if context.aitoolkit == "1" -%>
+##    module load Python-AI/$TOOLKIT_VERSION
+##    
+##  < end -%>
+
+  <%- if context.advanced == "1" && context.modules.blank? == false -%>
+    module load <%= context.modules %>
+
+  <%- end -%>
+
+  <%- else -%>
+    <%= context.commands.gsub(/\r/,"\n") %>
+
+<%- end -%>
+
+# Benchmark info
+echo "TIMING - Starting jupyter at: $(date)"
+
+# Launch the Jupyter server type selected by the user
+set -x
+jupyter-lab --config="${CONFIG_FILE}"

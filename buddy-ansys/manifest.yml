@@ -1,0 +1,12 @@
+---
+name: ANSYS
+category: Interactive Apps
+subcategory: GUIs
+role: batch_connect
+description: |
+  This app will launch [ANSYS] within a [Turbo VNC] server on [Buddy].
+
+  [ANSYS]: https://www.ansys.com/
+  [Turbo VNC]: https://www.turbovnc.org/
+  [Buddy]: https://hpc.uco.edu/
+icon: ''

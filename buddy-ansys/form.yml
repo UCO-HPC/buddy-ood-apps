@@ -1,0 +1,48 @@
+---
+cluster: "buddy-2.5"
+form:
+  - version
+  - ansys_type
+  - modules
+  - buddy_queue
+  - buddy_num_hours
+  - bc_vnc_resolution
+    
+attributes:
+  version:
+    widget: select
+    label: "ANSYS version"
+    help: "This defines the version of ANSYS you want to load."
+    options:
+      # - [ "2020R2", "ANSYS/2020R2" ]
+      # - [ "2020R2", "ANSYS/2020R2" ]
+      - [ "2025R1", "ANSYS/2025R1" ]
+  ansys_type:
+    widget: select
+    label: "Ansys Session Type"
+    help: "Choose between Workbench or Fluent"
+    options:
+      - ["Workbench", "runwb2"]
+      - ["Fluent", "fluent"]
+  modules: ""
+  buddy_queue:
+    label: Queue
+    help: "Queue your job will run on"
+    widget: select
+    options:
+      # - [ "General", "general" ]
+      # - [ "High Mem", "high-mem" ]
+      # - [ "GPU", "gpu"]
+      - [ "Desktop", "desktop" ]
+    value: "desktop"
+  buddy_num_hours:
+    widget: number_field
+    label: "Number of hours"
+    required: true
+    help: "Set the length of time for this job (1-48)"
+    min: 1
+    max: 48
+    step: 1
+    value: 2
+  bc_vnc_resolution:
+    required: true

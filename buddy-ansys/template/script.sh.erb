@@ -1,0 +1,49 @@
+#!/bin/bash
+
+<%- gpu = context.buddy_queue.include?("gpu") -%>
+
+# Cleanup any loaded modules
+module purge
+
+# Set working directory
+cd "${HOME}"
+
+# Launch Xfce Window Manager and Panel
+
+(
+  module restore
+  set -x
+  export XDG_CONFIG_HOME="<%= session.staged_root.join("config") %>"
+  export XDG_CACHE_HOME="$(mktemp -d)"
+  export $(dbus-launch)
+  xfwm4 --compositor=off --sm-client-disable &
+  xsetroot -solid "#D3D3D3"
+  xfsettingsd --sm-client-disable &
+  xfce4-panel --sm-client-disable &
+) &
+
+# Start ANSYS Workbench
+
+# Load the required environment
+module load <%= context.version %> 
+
+# Disable checking of the lock file. This will prevent errors should 
+# the previous session not be cleaned up correctly
+
+export ANSYS_LOCK="OFF"
+
+<%- unless gpu -%>
+# Switch over to mesa
+export CUE_GRAPHICS="mesa"
+<%- end -%>
+
+# Launch the requested ANSYS application
+<%- if gpu -%>
+module list
+set -x
+vglrun <%= context.ansys_type %>
+<%- else -%>
+module list
+set -x
+<%= context.ansys_type %>
+<%- end -%>

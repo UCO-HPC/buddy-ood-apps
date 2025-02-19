@@ -15,11 +15,12 @@ cd "${HOME}"
   export XDG_CONFIG_HOME="<%= session.staged_root.join("config") %>"
   export XDG_DATA_HOME="<%= session.staged_root.join("share") %>"
   export XDG_CACHE_HOME="$(mktemp -d)"
-  xfwm4 --compositor=off --sm-client-disable
+  export $(dbus-launch)
+  xfwm4 --compositor=off --sm-client-disable &
   # xfwm4 --compositor=off --daemon --sm-client-disable
   xsetroot -solid "#D3D3D3"
-  xfsettingsd --sm-client-disable
-  xfce4-panel --sm-client-disable
+  xfsettingsd --sm-client-disable &
+  xfce4-panel --sm-client-disable &
 ) &
 
 # Restore the module environment to avoid conflicts
@@ -31,7 +32,7 @@ module restore
 
 # Load the required environment
 #module load paraview/5.3.0
-module load VirtualGL
+# module load VirtualGL
 # Load the required environment
 module load <%= context.version %>
 # Load additional modules, if any

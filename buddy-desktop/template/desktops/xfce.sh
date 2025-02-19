@@ -36,6 +36,8 @@ else
     "${TERM_CONFIG}"
 fi
 
+set -x
+
 # launch dbus first through eval becuase it can conflict with a conda environment
 # see https://github.com/OSC/ondemand/issues/700
 eval $(dbus-launch --sh-syntax)

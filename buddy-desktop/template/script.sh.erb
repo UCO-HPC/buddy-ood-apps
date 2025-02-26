@@ -3,6 +3,7 @@
 # Change working directory to user's home directory
 cd "${HOME}"
 
+unset XDG_RUNTIME_DIR
 
 <%- unless context.modules.blank? -%> 
 # Purge the module environment to avoid conflicts

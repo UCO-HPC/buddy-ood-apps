@@ -14,11 +14,11 @@ attributes:
     help: "Queue your job will run on"
     widget: select
     options:
-      - [ "Desktop", "desktop" ]
-      # - [ "General", "general" ]
+      # - [ "Desktop", "desktop" ]
+      - [ "General", "general" ]
       # - [ "High Mem", "high-mem" ]
       # - [ "GPU", "gpu"]
-    value: "desktop"
+    value: "general"
   buddy_num_hours:
     widget: number_field
     label: "Number of hours"

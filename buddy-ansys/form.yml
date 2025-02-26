@@ -15,8 +15,10 @@ attributes:
     help: "This defines the version of ANSYS you want to load."
     options:
       # - [ "2020R2", "ANSYS/2020R2" ]
-      # - [ "2020R2", "ANSYS/2020R2" ]
-      - [ "2025R1", "ANSYS/2025R1" ]
+      - [ "2023R1", "ANSYS/2023R1" ]
+      - [ "2024R1", "ANSYS/2024R1" ]
+      # - [ "2025R1", "ANSYS/2025R1" ]
+    value: "ANSYS/2024R1"
   ansys_type:
     widget: select
     label: "Ansys Session Type"
@@ -30,11 +32,11 @@ attributes:
     help: "Queue your job will run on"
     widget: select
     options:
-      # - [ "General", "general" ]
+      - [ "General", "general" ]
       # - [ "High Mem", "high-mem" ]
       # - [ "GPU", "gpu"]
-      - [ "Desktop", "desktop" ]
-    value: "desktop"
+      # - [ "Desktop", "desktop" ]
+    value: "general"
   buddy_num_hours:
     widget: number_field
     label: "Number of hours"

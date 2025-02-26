@@ -16,11 +16,12 @@ attributes:
     help: Please select a queue from the drop-down
     widget: select
     options:
-      - [ "Desktop", "desktop"]
-#      - [ "Testing", "testing" ]
-#      - [ "General", "general" ] 
-#      - [ "High Mem", "high-mem" ]
-#      - [ "GPU", "gpu" ]
+      # - [ "Desktop", "desktop"]
+      # - [ "Testing", "testing" ]
+      - [ "General", "general" ] 
+      # - [ "High Mem", "high-mem" ]
+      # - [ "GPU", "gpu" ]
+    value: "general"
   buddy_num_hours:
     widget: number_field
     label: "Number of hours"

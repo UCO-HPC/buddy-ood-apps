@@ -1,0 +1,38 @@
+---
+cluster: "buddy-2.5"
+form:
+  - version
+  - modules
+  - buddy_queue
+  - buddy_num_hours
+  - bc_vnc_resolution
+    
+attributes:
+  version:
+    widget: select
+    label: "Maxent version"
+    help: "This defines the version of Maxent you want to load."
+    options:
+      - [ "3.4.4", "Maxent/3.4.4" ]
+  modules: ""
+  buddy_queue:
+    label: Queue
+    help: "Queue your job will run on"
+    widget: select
+    options:
+      # - [ "Desktop", "desktop" ]
+      - [ "General", "general" ]
+      # - [ "High Mem", "high-mem" ]
+##      - [ "GPU", "gpu"]
+    value: "general"
+  buddy_num_hours:
+    widget: number_field
+    label: "Number of hours"
+    required: true
+    help: "Set the length of time for this job (1-48)"
+    min: 1
+    max: 48
+    step: 1
+    value: 2
+  bc_vnc_resolution:
+    required: true

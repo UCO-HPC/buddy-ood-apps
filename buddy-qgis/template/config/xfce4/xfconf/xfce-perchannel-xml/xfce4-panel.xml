@@ -7,7 +7,7 @@
     <property name="panel-1" type="empty">
       <property name="position" type="string" value="p=6;x=99;y=24"/>
       <property name="position-locked" type="bool" value="true"/>
-      <property name="size" type="uint" value="48"/>
+      <property name="size" type="uint" value="26"/>
       <property name="length" type="uint" value="100"/>
       <property name="length-adjust" type="bool" value="false"/>
       <property name="plugin-ids" type="array">
